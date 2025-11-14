@@ -88,7 +88,8 @@
 .hero-signup-form textarea {
     grid-column: 1 / -1;
     resize: vertical;
-    min-height: 60px;
+    min-height: 80px;
+    width: 100%;
 }
 
 .hero-submit-button {
@@ -123,6 +124,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 500px;
 }
 
 .dog-illustration {
