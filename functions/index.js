@@ -26,14 +26,14 @@ exports.sendWelcomeEmail = onCall(async (request) => {
     }
 
     const mailOptions = {
-      from: "RenPoteService <martingammelholm@gmail.com>",
+      from: "RenPoteService <noreply@gmail.com>",
       replyTo: "kontakt@renpoteservice.dk", 
       to: email,
-      subject: "Velkomst til RenPoteService! 🐶",
+      subject: "Velkommen til RenPoteService! 🐶",
       html: `
         <h2>Hej ${fornavn}!</h2>
         <p>Tak fordi du har tilmeldt dig RenPoteService!</p>
-        <p>Vi har registreret din interesse. Når vi når 50 tilmeldinger, starter vi servicen og kontakter dig.</p>
+        <p>Vi har registreret din interesse. Når vi rammer 50 tilmeldinger, starter vi servicen og kontakter dig.</p>
         <p><strong>Hvad sker nu:</strong></p>
         <ul>
           <li>Vi sender dig SMS når vi er klar</li>
