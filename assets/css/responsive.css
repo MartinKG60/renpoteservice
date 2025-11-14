@@ -3,14 +3,25 @@
    ==================================== */
 
 @media (max-width: 768px) {
-    .promo-content {
-        grid-template-columns: 1fr;
+    .hero-container {
         gap: 2rem;
     }
     
     .hero-text-section {
         text-align: center;
-        padding-right: 0;
+    }
+    
+    .hero-bottom-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .hero-form-wrapper {
+        justify-self: center;
+    }
+    
+    .hero-dog-wrapper {
+        order: -1;
     }
     
     .promo-title {
@@ -23,10 +34,6 @@
     
     .hero-signup-form .form-row {
         grid-template-columns: 1fr;
-    }
-    
-    .hero-dog-section {
-        order: -1;
     }
     
     .dog-illustration {
