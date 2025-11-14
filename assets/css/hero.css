@@ -20,11 +20,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    align-items: center;
+    align-items: start;
 }
 
 .promo-text {
     text-align: left;
+    align-self: center;
 }
 
 .promo-label {
@@ -124,7 +125,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 500px;
+    height: 100%;
+    align-self: center;
 }
 
 .dog-illustration {
