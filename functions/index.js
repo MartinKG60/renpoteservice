@@ -26,7 +26,7 @@ exports.sendWelcomeEmail = onCall(async (request) => {
     }
 
     const mailOptions = {
-      from: "RenPoteService <kontakt@renpoteservice.dk>",
+      from: "RenPoteService <martingammelholm@gmail.com>",
       replyTo: "kontakt@renpoteservice.dk", 
       to: email,
       subject: "Velkomst til RenPoteService! 🐶",
