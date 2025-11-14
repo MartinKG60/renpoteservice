@@ -1,0 +1,35 @@
+/* ====================================
+   RESPONSIVE DESIGN & MEDIA QUERIES
+   ==================================== */
+
+@media (max-width: 768px) {
+    .promo-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .promo-title {
+        font-size: 2rem;
+    }
+    
+    .promo-form {
+        flex-direction: column;
+    }
+    
+    .dog-illustration {
+        width: 200px;
+        height: 200px;
+        font-size: 100px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}

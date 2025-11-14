@@ -1,0 +1,34 @@
+/* ====================================
+   FAQ SECTION
+   ==================================== */
+
+.faq {
+    padding: 5rem 2rem;
+    background: #f9f9f9;
+}
+
+.faq-item {
+    background: white;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: 2px solid #f0f0f0;
+}
+
+.faq-item:hover {
+    border-color: #5DBAAC;
+}
+
+.faq-question {
+    font-weight: bold;
+    color: #5DBAAC;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.faq-answer {
+    color: #666;
+    line-height: 1.6;
+}

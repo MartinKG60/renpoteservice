@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RenPoteService.dk - Din Professionelle Hundelorte Afhentning</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/features.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/pricing.css">
+    <link rel="stylesheet" href="assets/css/faq.css">
+    <link rel="stylesheet" href="assets/css/contact.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCp6bnM-p2tgKnvel3B-bzKvd66b2bnCnA",
+            authDomain: "renpoteservice.firebaseapp.com",
+            projectId: "renpoteservice",
+            storageBucket: "renpoteservice.firebasestorage.app",
+            messagingSenderId: "388989442454",
+            appId: "1:388989442454:web:62b030df19fb4aca9425b7",
+            measurementId: "G-L023L0F87V"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        window.saveSignupToFirebase = async function(formData) {
+            try {
+                const docRef = await addDoc(collection(db, "signups"), {
+                    ...formData,
+                    timestamp: new Date(),
+                    read: false
+                });
+                return { success: true, id: docRef.id };
+            } catch (error) {
+                console.error("Firebase error:", error);
+                return { success: false, error: error.message };
+            }
+        };
+        
+        window.initSignupCounter = async function() {
+            try {
+                const allDocs = await getDocs(collection(db, "signups"));
+                const totalCount = allDocs.size;
+                document.getElementById('signupCount').textContent = totalCount;
+                const progressPercent = (totalCount / 50) * 100;
+                document.getElementById('progressFill').style.width = Math.min(progressPercent, 100) + '%';
+            } catch (error) {
+                console.error("Error loading signup count:", error);
+            }
+        };
+        
+        document.addEventListener('DOMContentLoaded', window.initSignupCounter);
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="RenPoteService.dk">
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#fordele">Fordele</a></li>
+                    <li><a href="#priser">Priser</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="promo-banner">
+        <div class="promo-content">
+            <div class="promo-text">
+                <div class="promo-label">BEGRÆENSET TID - LANCERINGS TILBUD</div>
+                <h1 class="promo-title">Træt af Hundelorteopsamling?</h1>
+                <p class="promo-subtitle">Vi gør det for dig! De første 2 gange er GRATIS.</p>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255,255,255,0.95);">
+                    <strong>Efter 50 tilmeldinger, starter servicen</strong>
+                </p>
+                <form class="promo-form" onsubmit="return false;">
+                    <input type="email" class="promo-input" placeholder="Din email" required>
+                    <button class="promo-button" onclick="document.getElementById('email').focus();">Tilmeld Mig!</button>
+                </form>
+            </div>
+            <div class="promo-image">
+                <div class="dog-illustration"><i class="fas fa-dog"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tagline">
+        <div class="container">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                <h2>Status: <span id="signupCount">0</span> / 50 TILMELDT</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="fordele">
+        <div class="container">
+            <h2 class="section-title">Hvorfor Abonnere?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-dumbbell"></i></div>
+                    <h3>Du Har Bedre Ting At Gøre</h3>
+                    <p>Lad os gøre det kedelige arbejde. Du får tiden tilbage til det, der er vigtigere – og renere sko!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <h3>Billigt & Fleksibelt</h3>
+                    <p>Kun 75 kr/uge! Vælg 1x/uge eller 1x/14 dage. De første 2 gange er helt gratis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-unlock"></i></div>
+                    <h3>Ingen Binding</h3>
+                    <p>Afmeld med 1 dags varsel. Du er ikke låst fast &#45; prøv os uden risiko!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Pålidelig Service</h3>
+                    <p>Vi lægger en plan, vi holder tider, vi sender billede af lukket låge. Du kan stole på os.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Miljøvenligt</h3>
+                    <p>Korrekt bortskaffelse af alt. Vi passer på din have og på miljøet.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Meget Venlige Folk</h3>
+                    <p>Vi elsker hunde næsten lige så meget som du. Næsten... <i class="fas fa-bone"></i></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">Sådan Fungerer Det</h2>
+                <p><strong>1. Du tilmelder dig her <i class="fas fa-arrow-down"></i></strong></p>
+                <p>Når vi når 50 tilmeldinger, starter vi servicen.</p>
+                <br>
+                <p><strong>2. De første 2 gange er GRATIS</strong></p>
+                <p>Prøv os uden at bruge en krone. Du kan afmelde når som helst.</p>
+                <br>
+                <p><strong>3. 75 kr/uge bagefter</strong></p>
+                <p>Du vælger: 1x/uge eller 1x hver 14. dag. Vi sørger for resten.</p>
+                <br>
+                <p><strong>4. Afmeld med 1 dags varsel</strong></p>
+                <p>Simpelt, fleksibelt, ingen skjulte vilkår.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="priser">
+        <div class="container">
+            <h2 class="section-title">Priser er enkle <i class="fas fa-smile"></i></h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
+                <strong>75 kr/uge</strong> – uanset hvilken mulighed du vælger. De første 2 gange er GRATIS!
+            </p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Hver 14. dag</h3>
+                    <div class="price">75 kr</div>
+                    <div class="period">pr. gang • hver 14. dag</div>
+                    <ul>
+                        <li>≈ 150 kr/måned</li>
+                        <li>Perfekt for mindre have</li>
+                        <li>1-2 hunde</li>
+                        <li>SMS notifikation</li>
+                        <li>Foto efter besøg</li>
+                        <li>Afmeld med 1 dag varsel</li>
+                    </ul>
+                    <a href="#kontakt" class="cta-button">Tilmeld Mig</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3>Ugentlig</h3>
+                    <div class="price">75 kr</div>
+                    <div class="period">pr. gang • hver uge</div>
+                    <ul>
+                        <li>≈ 300 kr/måned</li>
+                        <li>Mest populær</li>
+                        <li>2-3 hunde</li>
+                        <li>SMS notifikation</li>
+                        <li>Foto efter besøg</li>
+                        <li>Afmeld med 1 dag varsel</li>
+                    </ul>
+                    <a href="#kontakt" class="cta-button">Tilmeld Mig</a>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 2rem; font-size: 1rem; color: #5DBAAC;">
+                <strong><i class="fas fa-check"></i> OBS: De første 2 besøg er helt gratis</strong>
+            </p>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Spørgsmål & Svar</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Hvad skal jeg gøre for at tilmelde mig?</div>
+                <div class="faq-answer">Udfyld formularen nedenfor med din email. Når vi når 50 tilmeldinger, kontakter vi alle og aftaler de første 2 gratis besøg! Så simpelt.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Er der virkelig ingen binding?</div>
+                <div class="faq-answer">Nej! Efter de 2 gratis gange kan du afmelde når som helst med blot 1 dags varsel. Du er ikke låst fast til noget.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Hvornår starter servicen?</div>
+                <div class="faq-answer">Når vi har 50 tilmeldinger, kontakter vi jer. Vi aftaler så dato for første besøg. Du får besked mindst 24 timer før vi kommer.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Hvor meget dækker 75 kr?</div>
+                <div class="faq-answer">Fuldt opsamling og oprydning af din have. Vi samler alt hundelorte og sørger for korrekt bortskaffelse. Uanset om det er lille eller stort job – prisen er den samme.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Hvad hvis min hund ikke skal være indendørs?</div>
+                <div class="faq-answer">Hvis hunden er stille, kan den være i haven. Hvis den bliver aggressiv, beder vi dig venligst have den indendørs. Det er for sikkerheden for vores team.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Skal jeg være hjemme når I kommer?</div>
+                <div class="faq-answer">Nej! Du får SMS når vi er på vej (ca. 30 min før). Du kan arbejde, handle eller bare nyde dine penge værd. Vi sender foto af lukket låge når vi er færdige.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Hvad hvis jeg kun vil prøve de 2 gratis gange?</div>
+                <div class="faq-answer">Helt ok! Du kan afmelde efter de 2 gratis besøg. Ingen skjulte gebyrer, ingen lange breve – bare en SMS eller et opkald.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Hvordan betaler jeg?</div>
+                <div class="faq-answer">Først efter de 2 gratis besøg. Du kan så vælge betalingsplan – månedlig eller pr. gang. Vi accepterer MobilePay, kreditkort og bankoverførsel.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="kontakt">
+        <div class="container">
+            <div class="contact-container">
+                <h2 class="section-title">Tilmeld dig her <i class="fas fa-paw"></i></h2>
+                <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
+                    <strong>Når vi når 50 tilmeldinger, starter vi og sender dig besked!</strong>
+                </p>
+                <div class="contact-form">
+                    <form onsubmit="handleSignup(event);">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fornavn">Fornavn *</label>
+                                <input type="text" id="fornavn" name="fornavn" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="efternavn">Efternavn *</label>
+                                <input type="text" id="efternavn" name="efternavn" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefon">Telefon *</label>
+                                <input type="tel" id="telefon" name="telefon" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postnummer">Postnummer *</label>
+                                <input type="text" id="postnummer" name="postnummer" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="by">By *</label>
+                                <input type="text" id="by" name="by" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="antal_hunde">Antal hunde *</label>
+                                <select id="antal_hunde" name="antal_hunde" required>
+                                    <option value="">Vælg antal</option>
+                                    <option value="1">1 hund</option>
+                                    <option value="2">2 hunde</option>
+                                    <option value="3">3 hunde</option>
+                                    <option value="4+">4+ hunde</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="frekvens">Hyppighed *</label>
+                                <select id="frekvens" name="frekvens" required>
+                                    <option value="">Vælg frekvens</option>
+                                    <option value="weekly">1 gang ugentligt</option>
+                                    <option value="biweekly">1 gang hver 14. dag</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="besked">Særlige ønsker eller noter (valgfri)</label>
+                            <textarea id="besked" name="besked" placeholder="F.eks. 'Pas på glat trappe', 'Kun adgang bagfra' osv."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">Tilmeld mig</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Spørgsmål? Kontakt os!</h3>
+                    <p><i class="fas fa-phone"></i> <strong>Telefon:</strong> 40 20 30 40</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> hej@renpoteservice.dk</p>
+                    <p><i class="fas fa-comments"></i> <strong>Facebook:</strong> Skriv en besked til vores gruppe</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#fordele">Fordele</a>
+                <a href="#priser">Priser</a>
+                <a href="#faq">FAQ</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="#">Privatlivspolitik</a>
+                <a href="#">Betingelser</a>
+            </div>
+            <p>&copy; 2025 RenPoteService.dk - Vi gør haven ren, så du slipper for besværet</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">Åbningstider: Man-Fre 9:00-17:00</p>
+        </div>
+    </footer>
+    
+    <script>
+        async function handleSignup(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('.submit-button');
+            
+            const fornavn = document.getElementById('fornavn').value;
+            const efternavn = document.getElementById('efternavn').value;
+            const email = document.getElementById('email').value;
+            const telefon = document.getElementById('telefon').value;
+            const postnummer = document.getElementById('postnummer').value;
+            const by = document.getElementById('by').value;
+            const antal_hunde = document.getElementById('antal_hunde').value;
+            const frekvens = document.getElementById('frekvens').value;
+            const besked = document.getElementById('besked').value;
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sender...';
+            
+            try {
+                const result = await window.saveSignupToFirebase({
+                    fornavn, efternavn, email, telefon, postnummer, by, antal_hunde, frekvens, besked
+                });
+                
+                if (result.success) {
+                    // Call Cloud Function to send email
+                    try {
+                        await fetch('https://sendwelcomeemail-a6faw2zmxa-uc.a.run.app', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ fornavn, email })
+                        });
+                    } catch (e) {
+                        console.log('Email service may be unavailable, but signup saved');
+                    }
+                    
+                    await window.initSignupCounter();
+                    
+                    submitBtn.textContent = 'Tilmeldt! Tjek din email';
+                    submitBtn.style.background = '#4BA89C';
+                    
+                    alert(`Tak ${fornavn}! ✓\n\nVi har modtaget din tilmelding og sendt en bekræftelse til ${email}.`);
+                    
+                    form.reset();
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Tilmeld mig';
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(result.error || 'Ukendt fejl');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Der opstod en fejl: ' + error.message);
+                submitBtn.textContent = 'Tilmeld mig';
+                submitBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
