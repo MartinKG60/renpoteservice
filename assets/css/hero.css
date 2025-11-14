@@ -23,14 +23,14 @@
 }
 
 .hero-text-section {
-    text-align: center;
+    text-align: left;
     width: 100%;
 }
 
 .hero-bottom-section {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 3rem;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
     align-items: center;
 }
 
@@ -71,8 +71,7 @@
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    max-width: 600px;
-    margin: 2rem 0;
+    width: 100%;
 }
 
 .hero-signup-form .form-row {
@@ -105,7 +104,9 @@
 .hero-signup-form textarea {
     grid-column: 1 / -1;
     resize: vertical;
-    min-height: 60px;
+    min-height: 80px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .hero-submit-button {
