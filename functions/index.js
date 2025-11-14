@@ -4,15 +4,15 @@ const nodemailer = require("nodemailer");
 
 setGlobalOptions({ maxInstances: 10 });
 
-// SMTP opsætning for domæne email
+// SMTP opsætning for domæne email  
 // Vi bruger Gmail SMTP men sender fra dit domæne
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
   auth: {
-    user: "martingammelholm@gmail.com", // Din Gmail
-    pass: "lino qlxi luik pwyi" // App password
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD
   }
 });
 
