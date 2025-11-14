@@ -224,7 +224,7 @@
 
     <section class="pricing" id="priser">
         <div class="container">
-            <h2 class="section-title">Priser er enkle <i class="fas fa-smile"></i></h2>
+            <h2 class="section-title">Enkle priser <i class="fas fa-smile"></i></h2>
             <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
                 <strong>75 kr/uge</strong> – uanset hvilken mulighed du vælger. De første 2 gange er GRATIS!
             </p>
@@ -316,7 +316,7 @@
             <div class="contact-container">
                 <h2 class="section-title">Har du spørgsmål? <i class="fas fa-question-circle"></i></h2>
                 <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
-                    Kontakt os på <strong>kontakt@renpoteservice.dk</strong> eller ring på <strong>+45 XX XX XX XX</strong>
+                    Kontakt os på <strong><a href="mailto:"kontakt@renpoteservice.dk">kontakt@renpoteservice.dk</a></strong>
                 </p>
                 <div style="text-align: center;">
                     <p style="font-size: 1.2rem; margin-bottom: 1rem;">
@@ -349,7 +349,7 @@
         async function handleSignup(event) {
             event.preventDefault();
             const form = event.target;
-            const submitBtn = form.querySelector('.submit-button');
+            const submitBtn = form.querySelector('.hero-submit-button');
             
             const fornavn = document.getElementById('fornavn').value;
             const efternavn = document.getElementById('efternavn').value;
@@ -402,7 +402,7 @@
             } catch (error) {
                 console.error('Error:', error);
                 alert('Der opstod en fejl: ' + error.message);
-                submitBtn.textContent = 'Tilmeld mig';
+                submitBtn.textContent = 'Tilmeld Mig Gratis!';
                 submitBtn.disabled = false;
             }
         }
