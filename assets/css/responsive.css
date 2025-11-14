@@ -5,6 +5,12 @@
 @media (max-width: 768px) {
     .promo-content {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .hero-text-section {
+        text-align: center;
+        padding-right: 0;
     }
     
     .promo-title {
@@ -17,6 +23,10 @@
     
     .hero-signup-form .form-row {
         grid-template-columns: 1fr;
+    }
+    
+    .hero-dog-section {
+        order: -1;
     }
     
     .dog-illustration {

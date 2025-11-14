@@ -18,14 +18,26 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1.2fr 0.8fr;
+    gap: 2rem;
     align-items: start;
 }
 
-.promo-text {
+.hero-text-section {
     text-align: left;
+    padding-right: 1rem;
+}
+
+.hero-form-section {
+    align-self: start;
+}
+
+.hero-dog-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     align-self: center;
+    height: 100%;
 }
 
 .promo-label {
@@ -52,11 +64,10 @@
 .hero-signup-form {
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(10px);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    max-width: 600px;
-    margin: 2rem 0;
+    width: 100%;
 }
 
 .hero-signup-form .form-row {
@@ -121,13 +132,7 @@
     margin-right: 0.5rem;
 }
 
-.promo-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    align-self: center;
-}
+/* Remove old promo-image styles as we now use hero-dog-section */
 
 .dog-illustration {
     width: 300px;
