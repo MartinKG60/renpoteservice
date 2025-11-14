@@ -11,13 +11,20 @@
         font-size: 2rem;
     }
     
-    .promo-form {
-        flex-direction: column;
+    .hero-signup-form {
+        padding: 1.5rem;
+    }
+    
+    .hero-signup-form .form-row {
+        grid-template-columns: 1fr;
     }
     
     .dog-illustration {
         width: 200px;
         height: 200px;
+    }
+    
+    .dog-illustration i {
         font-size: 100px;
     }
     

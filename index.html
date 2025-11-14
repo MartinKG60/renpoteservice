@@ -61,9 +61,20 @@
             try {
                 const allDocs = await getDocs(collection(db, "signups"));
                 const totalCount = allDocs.size;
+                
+                // Update both counters
                 document.getElementById('signupCount').textContent = totalCount;
+                const secondCounter = document.getElementById('signupCount2');
+                if (secondCounter) {
+                    secondCounter.textContent = totalCount;
+                }
+                
                 const progressPercent = (totalCount / 50) * 100;
                 document.getElementById('progressFill').style.width = Math.min(progressPercent, 100) + '%';
+                const secondProgress = document.getElementById('progressFill2');
+                if (secondProgress) {
+                    secondProgress.style.width = Math.min(progressPercent, 100) + '%';
+                }
             } catch (error) {
                 console.error("Error loading signup count:", error);
             }
@@ -98,9 +109,37 @@
                 <p style="font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255,255,255,0.95);">
                     <strong>Efter 50 tilmeldinger, starter servicen</strong>
                 </p>
-                <form class="promo-form" onsubmit="return false;">
-                    <input type="email" class="promo-input" placeholder="Din email" required>
-                    <button class="promo-button" onclick="document.getElementById('email').focus();">Tilmeld Mig!</button>
+                <form class="hero-signup-form" onsubmit="handleSignup(event)">
+                    <div class="form-row">
+                        <input type="text" id="fornavn" placeholder="Fornavn *" required>
+                        <input type="text" id="efternavn" placeholder="Efternavn *" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="email" id="email" placeholder="Email *" required>
+                        <input type="tel" id="telefon" placeholder="Telefon *" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="postnummer" placeholder="Postnummer *" pattern="[0-9]{4}" required>
+                        <input type="text" id="by" placeholder="By *" required>
+                    </div>
+                    <div class="form-row">
+                        <select id="antal_hunde" required>
+                            <option value="">Antal hunde *</option>
+                            <option value="1">1 hund</option>
+                            <option value="2">2 hunde</option>
+                            <option value="3">3 hunde</option>
+                            <option value="4+">4+ hunde</option>
+                        </select>
+                        <select id="frekvens" required>
+                            <option value="">Frekvens *</option>
+                            <option value="ugentlig">Ugentlig (anbefalet)</option>
+                            <option value="hver-14-dag">Hver 14. dag</option>
+                        </select>
+                    </div>
+                    <textarea id="besked" placeholder="Særlige ønsker? (valgfrit)" rows="2"></textarea>
+                    <button type="submit" class="hero-submit-button">
+                        <i class="fas fa-rocket"></i> Tilmeld Mig Gratis!
+                    </button>
                 </form>
             </div>
             <div class="promo-image">
@@ -269,80 +308,17 @@
     <section class="contact-section" id="kontakt">
         <div class="container">
             <div class="contact-container">
-                <h2 class="section-title">Tilmeld dig her <i class="fas fa-paw"></i></h2>
+                <h2 class="section-title">Har du spørgsmål? <i class="fas fa-question-circle"></i></h2>
                 <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
-                    <strong>Når vi når 50 tilmeldinger, starter vi og sender dig besked!</strong>
+                    Kontakt os på <strong>kontakt@renpoteservice.dk</strong> eller ring på <strong>+45 XX XX XX XX</strong>
                 </p>
-                <div class="contact-form">
-                    <form onsubmit="handleSignup(event);">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="fornavn">Fornavn *</label>
-                                <input type="text" id="fornavn" name="fornavn" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="efternavn">Efternavn *</label>
-                                <input type="text" id="efternavn" name="efternavn" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="telefon">Telefon *</label>
-                                <input type="tel" id="telefon" name="telefon" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="postnummer">Postnummer *</label>
-                                <input type="text" id="postnummer" name="postnummer" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="by">By *</label>
-                                <input type="text" id="by" name="by" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="antal_hunde">Antal hunde *</label>
-                                <select id="antal_hunde" name="antal_hunde" required>
-                                    <option value="">Vælg antal</option>
-                                    <option value="1">1 hund</option>
-                                    <option value="2">2 hunde</option>
-                                    <option value="3">3 hunde</option>
-                                    <option value="4+">4+ hunde</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="frekvens">Hyppighed *</label>
-                                <select id="frekvens" name="frekvens" required>
-                                    <option value="">Vælg frekvens</option>
-                                    <option value="weekly">1 gang ugentligt</option>
-                                    <option value="biweekly">1 gang hver 14. dag</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="besked">Særlige ønsker eller noter (valgfri)</label>
-                            <textarea id="besked" name="besked" placeholder="F.eks. 'Pas på glat trappe', 'Kun adgang bagfra' osv."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-button">Tilmeld mig</button>
-                    </form>
-                </div>
-                
-                <div class="contact-info">
-                    <h3>Spørgsmål? Kontakt os!</h3>
-                    <p><i class="fas fa-phone"></i> <strong>Telefon:</strong> 40 20 30 40</p>
-                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> hej@renpoteservice.dk</p>
-                    <p><i class="fas fa-comments"></i> <strong>Facebook:</strong> Skriv en besked til vores gruppe</p>
+                <div style="text-align: center;">
+                    <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                        <strong>Status: <span id="signupCount2">0</span> / 50 TILMELDT</strong>
+                    </p>
+                    <div class="progress-bar" style="max-width: 400px; margin: 0 auto;">
+                        <div class="progress-fill" id="progressFill2" style="width: 0%;"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -401,18 +377,19 @@
                     
                     await window.initSignupCounter();
                     
-                    submitBtn.textContent = 'Tilmeldt! Tjek din email';
-                    submitBtn.style.background = '#4BA89C';
+                    submitBtn.textContent = '✓ Tilmeldt! Tjek din email';
+                    submitBtn.style.background = '#27AE60';
+                    submitBtn.style.transform = 'scale(1.05)';
                     
-                    alert(`Tak ${fornavn}! ✓\n\nVi har modtaget din tilmelding og sendt en bekræftelse til ${email}.`);
-                    
-                    form.reset();
-                    
-                    setTimeout(() => {
-                        submitBtn.textContent = 'Tilmeld mig';
-                        submitBtn.style.background = '';
-                        submitBtn.disabled = false;
-                    }, 2000);
+                    // Show success message in form
+                    form.innerHTML = `
+                        <div style="text-align: center; padding: 2rem;">
+                            <i class="fas fa-check-circle" style="font-size: 3rem; color: #27AE60; margin-bottom: 1rem;"></i>
+                            <h3 style="color: #2C3E50; margin-bottom: 1rem;">Tak ${fornavn}! 🎉</h3>
+                            <p style="color: #34495E;">Vi har sendt en bekræftelse til <strong>${email}</strong></p>
+                            <p style="color: #5DBAAC; margin-top: 1rem;">Du hører fra os når vi når 50 tilmeldinger!</p>
+                        </div>
+                    `;
                 } else {
                     throw new Error(result.error || 'Ukendt fejl');
                 }
