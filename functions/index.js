@@ -4,15 +4,14 @@ const nodemailer = require("nodemailer");
 
 setGlobalOptions({ maxInstances: 10 });
 
-// SMTP opsætning for domæne email  
-// Vi bruger Gmail SMTP men sender fra dit domæne
+// SMTP opsætning for Simply.com email
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  host: process.env.SMTP_HOST || "smtp.simply.com",
+  port: process.env.SMTP_PORT || 587,
+  secure: false, // STARTTLS
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD
   }
 });
 

@@ -3,8 +3,13 @@
    ==================================== */
 
 @media (max-width: 768px) {
+    .nav-container {
+        justify-content: center;
+    }
+    
     .hero-container {
         gap: 2rem;
+        padding: 0 1rem;
     }
     
     .hero-text-section {
@@ -13,7 +18,7 @@
     
     .hero-bottom-section {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1rem;
     }
     
     .hero-form-wrapper {
@@ -23,9 +28,22 @@
     .hero-dog-wrapper {
         order: -1;
     }
+
+    .promo-label {
+        font-size: 0.6rem;
+    }
     
     .promo-title {
-        font-size: 2rem;
+        font-size: 1.4rem;
+        line-height: 1.2;
+    }
+
+    .promo-service {
+        font-size: 1rem;
+    }
+    
+    .promo-banner {
+        padding: 2rem 1rem;
     }
     
     .hero-signup-form {
@@ -37,12 +55,12 @@
     }
     
     .dog-illustration {
-        width: 200px;
-        height: 200px;
+        width: 120px;
+        height: 120px;
     }
     
     .dog-illustration i {
-        font-size: 100px;
+        font-size: 60px;
     }
     
     .nav-links {
