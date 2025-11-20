@@ -148,15 +148,7 @@
                     <form class="hero-signup-form" onsubmit="handleSignup(event)">
                         <div class="form-row">
                             <input type="text" id="fornavn" placeholder="Fornavn *" required>
-                            <input type="text" id="efternavn" placeholder="Efternavn *" required>
-                        </div>
-                        <div class="form-row">
                             <input type="email" id="email" placeholder="Email *" required>
-                            <input type="tel" id="telefon" placeholder="Telefon *" required>
-                        </div>
-                        <div class="form-row">
-                            <input type="text" id="postnummer" placeholder="Postnummer *" pattern="[0-9]{4}" required>
-                            <input type="text" id="by" placeholder="By *" required>
                         </div>
                         <div class="form-row">
                             <select id="antal_hunde" required>
@@ -171,6 +163,14 @@
                                 <option value="ugentlig">Ugentlig (anbefalet)</option>
                                 <option value="hver-14-dag">Hver 14. dag</option>
                             </select>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" id="efternavn" placeholder="Efternavn (valgfrit)">
+                            <input type="tel" id="telefon" placeholder="Telefon (valgfrit)">
+                        </div>
+                        <div class="form-row">
+                            <input type="text" id="postnummer" placeholder="Postnummer (valgfrit)" pattern="[0-9]{4}">
+                            <input type="text" id="by" placeholder="By (valgfrit)">
                         </div>
                         <textarea id="besked" placeholder="Særlige ønsker? (valgfrit)" rows="2"></textarea>
                         <button type="submit" class="hero-submit-button">
