@@ -397,21 +397,24 @@
             const submitBtn = form.querySelector('.hero-submit-button');
             
             const fornavn = document.getElementById('fornavn').value;
-            const efternavn = document.getElementById('efternavn').value;
             const email = document.getElementById('email').value;
-            const telefon = document.getElementById('telefon').value;
-            const postnummer = document.getElementById('postnummer').value;
-            const by = document.getElementById('by').value;
             const antal_hunde = document.getElementById('antal_hunde').value;
             const frekvens = document.getElementById('frekvens').value;
-            const besked = document.getElementById('besked').value;
             
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sender...';
             
             try {
                 const result = await window.saveSignupToFirebase({
-                    fornavn, efternavn, email, telefon, postnummer, by, antal_hunde, frekvens, besked
+                    fornavn, 
+                    email, 
+                    antal_hunde, 
+                    frekvens,
+                    efternavn: '',
+                    telefon: '',
+                    postnummer: '',
+                    by: '',
+                    besked: ''
                 });
                 
                 if (result.success) {
