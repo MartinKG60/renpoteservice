@@ -97,7 +97,7 @@ exports.sendWelcomeEmail = functions.https.onRequest((req, res) => {
           <p>Vi har registreret din interesse. Når vi når 50 tilmeldinger, starter vi servicen og kontakter dig.</p>
           <p><strong>Hvad sker nu:</strong></p>
           <ul>
-            <li>Vi sender dig SMS når vi er klar</li>
+            <li>Vi kontakter dig på mail når vi er klar</li>
             <li>Aftaler første besøg</li>
             <li>De første 2 gange er helt gratis!</li>
           </ul>

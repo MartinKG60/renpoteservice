@@ -258,8 +258,8 @@
                 <p><strong>2. De første 2 gange er GRATIS</strong></p>
                 <p>Prøv os uden at bruge en krone. Du kan afmelde når som helst.</p>
                 <br>
-                <p><strong>3. 75 kr/uge bagefter</strong></p>
-                <p>Du vælger: 1x/uge eller 1x hver 14. dag. Vi sørger for resten.</p>
+                <p><strong>3. Fleksible priser bagefter</strong></p>
+                <p>Du vælger: 1x/uge eller 1x hver 14. dag. Prisen afhænger af antal hunde.</p>
                 <br>
                 <p><strong>4. Afmeld med 1 dags varsel</strong></p>
                 <p>Simpelt, fleksibelt, ingen skjulte vilkår.</p>
@@ -269,19 +269,51 @@
 
     <section class="pricing" id="priser">
         <div class="container">
-            <h2 class="section-title">Enkle priser <i class="fas fa-smile"></i></h2>
-            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
-                <strong>75 kr/uge</strong> – uanset hvilken mulighed du vælger. De første 2 gange er GRATIS!
+            <h2 class="section-title">Priser <i class="fas fa-calculator"></i></h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem;">
+                <strong>Fra 160 kr pr. besøg</strong> – Beregn din pris nedenfor
             </p>
+            
+            <!-- Price Calculator -->
+            <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto 3rem;">
+                <h3 style="text-align: center; color: #1a3d3d; margin-bottom: 2rem;">Beregn Din Pris</h3>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Antal hunde:</label>
+                    <select id="priceCalcDogs" onchange="calculatePrice()" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+                        <option value="1">1 hund</option>
+                        <option value="2">2 hunde</option>
+                        <option value="3">3 hunde</option>
+                        <option value="4">4+ hunde</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Hvor ofte:</label>
+                    <select id="priceCalcFreq" onchange="calculatePrice()" style="width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+                        <option value="ugentlig">Ugentlig (anbefalet)</option>
+                        <option value="hver-14-dag">Hver 14. dag</option>
+                    </select>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #5DBAAC 0%, #4a9d91 100%); padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="color: white; font-size: 0.9rem; margin-bottom: 0.5rem; opacity: 0.9;">Din pris pr. besøg:</div>
+                    <div id="calculatedPrice" style="color: white; font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">160 kr</div>
+                    <div id="monthlyPrice" style="color: white; font-size: 1rem; opacity: 0.9;">≈ 320 kr/måned</div>
+                    <div style="color: white; font-size: 0.85rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.3);">
+                        <i class="fas fa-gift"></i> De første 2 besøg er GRATIS!
+                    </div>
+                </div>
+            </div>
+
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>Hver 14. dag</h3>
-                    <div class="price">75 kr</div>
+                    <div class="price">Fra 160 kr</div>
                     <div class="period">pr. gang • hver 14. dag</div>
                     <ul>
-                        <li>≈ 150 kr/måned</li>
                         <li>Perfekt for mindre have</li>
-                        <li>1-2 hunde</li>
+                        <li>Fleksibel pris efter antal hunde</li>
                         <li>SMS notifikation</li>
                         <li>Foto efter besøg</li>
                         <li>Afmeld med 1 dag varsel</li>
@@ -291,12 +323,12 @@
                 
                 <div class="pricing-card featured">
                     <h3>Ugentlig</h3>
-                    <div class="price">75 kr</div>
+                    <div class="price">Fra 210 kr</div>
                     <div class="period">pr. gang • hver uge</div>
                     <ul>
-                        <li>≈ 300 kr/måned</li>
                         <li>Mest populær</li>
-                        <li>2-3 hunde</li>
+                        <li>Altid ren have</li>
+                        <li>Fleksibel pris efter antal hunde</li>
                         <li>SMS notifikation</li>
                         <li>Foto efter besøg</li>
                         <li>Afmeld med 1 dag varsel</li>
@@ -391,6 +423,38 @@
     </footer>
     
     <script>
+        // Price calculator function
+        function calculatePrice() {
+            const dogs = parseInt(document.getElementById('priceCalcDogs').value);
+            const freq = document.getElementById('priceCalcFreq').value;
+            
+            // Price matrix based on 30% of US pricing
+            const prices = {
+                'ugentlig': {
+                    1: 210,
+                    2: 230,
+                    3: 250,
+                    4: 270
+                },
+                'hver-14-dag': {
+                    1: 160,
+                    2: 175,
+                    3: 190,
+                    4: 205
+                }
+            };
+            
+            const pricePerVisit = prices[freq][dogs];
+            const visitsPerMonth = freq === 'ugentlig' ? 4 : 2;
+            const monthlyPrice = pricePerVisit * visitsPerMonth;
+            
+            document.getElementById('calculatedPrice').textContent = pricePerVisit + ' kr';
+            document.getElementById('monthlyPrice').textContent = '≈ ' + monthlyPrice + ' kr/måned';
+        }
+        
+        // Initialize calculator on page load
+        document.addEventListener('DOMContentLoaded', calculatePrice);
+        
         async function handleSignup(event) {
             event.preventDefault();
             const form = event.target;
